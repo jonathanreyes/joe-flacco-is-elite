@@ -5,6 +5,8 @@ joe-flacco-is-elite
 
 Chrome extension that replaces occurrences of 'elite' with 'Joe Flacco'
 
+Forked from panicsteve's cloud-to-butt repo: https://github.com/panicsteve/clo
+
 [Direct download of crx file](https://github.com/panicsteve/cloud-to-butt/blob/master/CloudToButt.crx?raw=true)
 
 Installation
