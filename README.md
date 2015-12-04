@@ -1,7 +1,7 @@
 joe-flacco-is-elite
 =============
 
-![](logo.png)
+![](http://i137.photobucket.com/albums/q239/Friartown/Flacco2.png)
 
 Chrome extension that replaces occurrences of 'elite' with 'Joe Flacco'
 
