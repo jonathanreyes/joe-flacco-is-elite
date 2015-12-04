@@ -31,10 +31,12 @@ function handleText(textNode)
 {
 	var v = textNode.nodeValue;
 
+	//Elite -> Joe Flacco
 	v = v.replace(/\bElite\b/g, "Joe Flacco");
 	v = v.replace(/\belite\b/g, "Joe Flacco");
 	v = v.replace(/\bELITE\b/g, "JOE FLACCO");
 	
+	/* Insert "Is Joe Flacco Elite?" into any string of questions
 	var split_v = v.replace(/([.?!])\s*(?=[A-Z])/, "$1|").split("|");
 	for (var i = 0; i < split_v.length - 1; i++) {
 		if (split_v.substr(split_v[i].length - 1) === '?' && split_v.substr(split_v[i + 1].length - 1) === '?') {
@@ -43,8 +45,10 @@ function handleText(textNode)
 		
 	}
 	
-	//textNode.nodeValue = v;
 	textNode.nodeValue = split_v.join("");
+	*/
+	
+	textNode.nodeValue = v;
 }
 
 
