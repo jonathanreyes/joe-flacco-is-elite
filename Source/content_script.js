@@ -35,7 +35,16 @@ function handleText(textNode)
 	v = v.replace(/\belite\b/g, "Joe Flacco");
 	v = v.replace(/\bELITE\b/g, "JOE FLACCO");
 	
-	textNode.nodeValue = v;
+	var split_v = v.replace(/([.?!])\s*(?=[A-Z])/, "$1|").split("|");
+	for (var i = 0; i < split_v.length - 1; i++) {
+		if (split_v.substr(split_v[i].length - 1) === '?' && split_v.substr(split_v[i + 1].length - 1) === '?') {
+			split_v.splice(i + 1, 0, "Is Joe Flacco Elite?");
+		}
+		
+	}
+	
+	//textNode.nodeValue = v;
+	textNode.nodeValue = split_v.join("");
 }
 
 
