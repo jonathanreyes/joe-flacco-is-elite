@@ -42,31 +42,26 @@ function handleText(textNode)
 
 	var i = 0;
 	while (i < sentences.length - 1) {
-		console.log(sentences[i]);
-
-		//Insert "Is Joe Flacco Elite?" between the first pair of questions
-		// if (sentences[i].substr(sentences[i].length - 1) === '?' && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
-		// 	sentences.splice(++i, 0, " Is Joe Flacco Elite?");
-		// 	break;
-		// }
-
 		//find the limit indices of a run of questions
-		var questionIdxMin = -1, questionIdxMax = -1;
+		var questionIdxMin = 0, questionIdxMax = 0;
 		if (sentences[i].substr(sentences[i].length - 1) === '?' 
 			  && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
 
 			questionIdxMin = ++i; //save the index of the second question (first index where we might insert our question)
+			questionIdxMax = questionIdxMin; //if there's only two questions, then these will be the same, so start with this
 
 			//this while loop ends when we've svaed the index of the last question
-			while (sentences[i].substr(sentences[i].length - 1) === '?' 
-					   && sentences[i+1].substr(sentences[i+1].length - 1) === '?'
-					   && i < sentence.length - 1) {
+			while (i < sentences.length - 1
+				     && sentences[i].substr(sentences[i].length - 1) === '?' 
+					   && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
 				questionIdxMax = i++;
 			}
 
-			//generate a random index between the limits of the run of questions
-			var insertionIdx = Math.floor(Math.random() * (questionIdxMax - questionIdxMin + 1)) + questionIdxMin;
-		
+			var insertionIdx = questionIdxMin; //if there's only two questions, only one place to put our question
+			if (questionIdxMin != questionIdxMax) {
+				//generate a random index between the limits of the run of questions if there's a range
+				var insertionIdx = Math.floor(Math.random() * (questionIdxMax - questionIdxMin + 1)) + questionIdxMin;
+			}
 			//insert the question at the random index
 			sentences.splice(insertionIdx, 0, "Is Joe Flacco Elite?");
 
@@ -78,7 +73,7 @@ function handleText(textNode)
 		i++;
 	}
 	
-	textNode.nodeValue = sentences.join("");
+	textNode.nodeValue = sentences.join(" ");
 }
 
 
