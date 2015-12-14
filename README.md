@@ -3,7 +3,7 @@ joe-flacco-is-elite
 
 ![](logo.png)
 
-Chrome extension that replaces occurrences of 'elite' with 'Joe Flacco' and/or inserts the question "Is Joe Flacco Elite?" randomly into runs of consecutive questions.
+Chrome extension that replaces occurrences of 'elite' with 'Joe Flacco' and/or inserts the question "Is Joe Flacco a elite quarterback?" randomly into runs of consecutive questions.
 
 Functionality can be turned on/off from the extension's popup menu.
 

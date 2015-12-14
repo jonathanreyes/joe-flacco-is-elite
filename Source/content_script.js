@@ -75,7 +75,7 @@ function handleText(textNode) {
 				var insertionIdx = Math.floor(Math.random() * (questionIdxMax - questionIdxMin + 1)) + questionIdxMin;
 
 				//insert the question at the random index
-				sentences.splice(insertionIdx, 0, "Is Joe Flacco Elite?");
+				sentences.splice(insertionIdx, 0, "Is Joe Flacco a elite quarterback?");
 
 				//only want to put the question in once per textNode
 				break;
