@@ -1,9 +1,16 @@
-// chrome.storage.sync.get("replace_elite", function(data) {
-// 	if(data["replace_elite"])
-// 		alert("TRUEEEEEEEEE");
-// });
+var replace_enabled = false;
+var ask_enabled = false;
 
-walk(document.body);
+//set flags once per page load so we don't do it every time handleText is called (recursively)
+chrome.storage.sync.get("replace_elite", function(data) {
+	replace_enabled = data["replace_elite"];
+
+	chrome.storage.sync.get("ask_elite", function(data) {
+		ask_enabled = data["ask_elite"];
+
+		walk(document.body);
+	});
+});
 
 function walk(node) {
 	// I stole this function from here:
@@ -32,59 +39,55 @@ function walk(node) {
 function handleText(textNode) {
 	var v = textNode.nodeValue;
 
-	//Elite -> Joe Flacco
-	chrome.storage.sync.get("replace_elite", function(data) {
-		if (data["replace_elite"]) {
-			v = v.replace(/\bElite\b/g, "Joe Flacco");
-			v = v.replace(/\belite\b/g, "Joe Flacco");
-			v = v.replace(/\bELITE\b/g, "JOE FLACCO");
-			textNode.nodeValue = v;
-		}
-	});
+	/*Elite -> Joe Flacco*/
+	if (replace_enabled) {
+		v = v.replace(/\bElite\b/g, "Joe Flacco");
+		v = v.replace(/\belite\b/g, "Joe Flacco");
+		v = v.replace(/\bELITE\b/g, "JOE FLACCO");
+	}
 	
 	/*Insert "Is Joe Flacco Elite?" into any string of questions*/
 	//Split the v into individual sentences
-	v = textNode.nodeValue; //reestablish v in case replacement occurred
 	var sentences = v.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|")
 
-	chrome.storage.sync.get("ask_elite", function(data) {
-		if(data["ask_elite"]) {
-			var i = 0;
-			while (i < sentences.length - 1) {
-				//find the limit indices of a run of questions
-				var questionIdxMin = 0, questionIdxMax = 0;
-				if (sentences[i].substr(sentences[i].length - 1) === '?' 
-					  && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
+	if(ask_enabled) {
+		var i = 0;
+		while (i < sentences.length - 1) {
+			//find the limit indices of a run of questions
+			var questionIdxMin = 0, questionIdxMax = 0;
+			if (sentences[i].substr(sentences[i].length - 1) === '?' 
+				  && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
 
-					questionIdxMin = ++i; //save the index of the second question (first index where we might insert our question)
-					questionIdxMax = questionIdxMin; //if there's only two questions, then these will be the same, so start with this
+				questionIdxMin = ++i; //save the index of the second question (first index where we might insert our question)
+				questionIdxMax = questionIdxMin; //if there's only two questions, then these will be the same, so start with this
 
-					//this while loop ends when we've svaed the index of the last question
-					while (i < sentences.length - 1
-						     && sentences[i].substr(sentences[i].length - 1) === '?' 
-							   && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
-						questionIdxMax = ++i;
-					}
-
-					//increment questionIdxMax one more time so the question can be at the end of the run of questions
-					questionIdxMax++;
-
-					//generate a random index between the limits of the run of questions (or at the end) if there's a range
-					var insertionIdx = Math.floor(Math.random() * (questionIdxMax - questionIdxMin + 1)) + questionIdxMin;
-
-					//insert the question at the random index
-					sentences.splice(insertionIdx, 0, "Is Joe Flacco Elite?");
-
-					//only want to put the question in once per textNode
-					break;
+				//this while loop ends when we've svaed the index of the last question
+				while (i < sentences.length - 1
+					     && sentences[i].substr(sentences[i].length - 1) === '?' 
+						   && sentences[i+1].substr(sentences[i+1].length - 1) === '?') {
+					questionIdxMax = ++i;
 				}
-				
 
-				i++;
+				//increment questionIdxMax one more time so the question can be at the end of the run of questions
+				questionIdxMax++;
+
+				//generate a random index between the limits of the run of questions (or at the end) if there's a range
+				var insertionIdx = Math.floor(Math.random() * (questionIdxMax - questionIdxMin + 1)) + questionIdxMin;
+
+				//insert the question at the random index
+				sentences.splice(insertionIdx, 0, "Is Joe Flacco Elite?");
+
+				//only want to put the question in once per textNode
+				break;
 			}
-			textNode.nodeValue = sentences.join(" ");
+			
+
+			i++;
 		}
-	});
+	}
+
+	//add our changes to the textNode
+	textNode.nodeValue = sentences.join(" ");
 }
 
 
