@@ -3,7 +3,7 @@ joe-flacco-is-elite
 
 ![](logo.png)
 
-Chrome extension that replaces occurrences of 'elite' with 'Joe Flacco' and inserts the question "Is Joe Flacco Elite?" into runs of consecutive questions.
+Chrome extension that replaces occurrences of 'elite' with 'Joe Flacco' and inserts the question "Is Joe Flacco Elite?" randomly into runs of consecutive questions.
 
 Forked from panicsteve's cloud-to-butt repo: https://github.com/panicsteve/cloud-to-butt
 
