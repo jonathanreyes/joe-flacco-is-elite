@@ -1,8 +1,8 @@
 {
 	"manifest_version": 2,
 	"name": "Joe FLacco Is ELITE",
-	"version": "1.0",
-	"description": "Replaces the text 'elite' with 'Joe Flacco' and asks \"Is Joe Flacco Elite?\" when many questions are asked in succession",
+	"version": "1.1",
+	"description": "Replaces the text 'elite' with 'Joe Flacco' and asks \"Is Joe Flacco a elite quarterback?\" when many questions are asked in succession",
 	"permissions" : [
 		"storage"
 	],
