@@ -16,7 +16,7 @@ Forked from panicsteve's cloud-to-butt repo: https://github.com/panicsteve/cloud
 Installation
 ------------
 
-In Chrome, choose Window > Extensions.  Drag CloudToButt.crx into the page that appears.
+In Chrome, choose Window > Extensions.  Drag JoeFlaccoIsElite.crx into the page that appears.
 
 Resources
 ---------
